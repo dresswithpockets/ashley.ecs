@@ -24,9 +24,9 @@
         public T GetFrom(Entity entity) => entity.GetComponent<T>();
 
         /// <summary>
-        /// 
+        /// returns true if the entity has an instance of the specified component type; false, otherwise`
         /// </summary>
-        /// <returns>true if the entity has an instance of the specified component type.</returns>
+        /// <returns>true if the entity has an instance of the specified component type; false, otherwise</returns>
         public bool In(Entity entity) => entity.HasComponent(_componentType);
 
         private ComponentMapper()
