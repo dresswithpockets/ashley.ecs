@@ -29,6 +29,12 @@
         /// <returns>true if the entity has an instance of the specified component type; false, otherwise</returns>
         public bool In(Entity entity) => entity.HasComponent(_componentType);
 
+        /// <summary>
+        /// returns the instance of the component type type belonging to a specific entity
+        /// identical to <see cref="GetFrom"/>
+        /// </summary>
+        public T this[Entity entity] => GetFrom(entity);
+
         private ComponentMapper()
         {
             _componentType = ComponentType.GetFor<T>();
