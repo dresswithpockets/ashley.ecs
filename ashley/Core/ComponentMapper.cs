@@ -6,6 +6,8 @@
     /// <typeparam name="T">The class implementing <see cref="IComponent"/> to map to</typeparam>
     public class ComponentMapper<T> where T : class, IComponent
     {
+        private readonly ComponentType _componentType;
+        
         /// <summary>
         /// returns a ComponentMapper that provides fast access to the <see cref="IComponent"/> type specified
         /// </summary>
@@ -25,8 +27,11 @@
         /// 
         /// </summary>
         /// <returns>true if the entity has an instance of the specified component type.</returns>
-        public bool In(Entity entity) => entity.HasComponent(ComponentType.GetFor<T>());
-        
-        private ComponentMapper() {}
+        public bool In(Entity entity) => entity.HasComponent(_componentType);
+
+        private ComponentMapper()
+        {
+            _componentType = ComponentType.GetFor<T>();
+        }
     }
 }
