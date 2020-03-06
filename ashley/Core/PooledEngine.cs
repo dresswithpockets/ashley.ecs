@@ -61,7 +61,7 @@ namespace ashley.Core
                 ComponentAdded.RemoveAllListeners();
                 ComponentRemoved.RemoveAllListeners();
                 ScheduledForRemoval = false;
-                _removing = false;
+                Removing = false;
             }
         }
         

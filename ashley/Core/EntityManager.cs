@@ -128,10 +128,10 @@ namespace ashley.Core
             if (_entitySet.Remove(entity))
             {
                 entity.ScheduledForRemoval = false;
-                entity._removing = true;
+                entity.Removing = true;
                 _entities.Remove(entity);
                 _listener.EntityRemoved(entity);
-                entity._removing = false;
+                entity.Removing = false;
             }
         }
 

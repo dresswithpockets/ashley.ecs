@@ -105,7 +105,7 @@ namespace ashley.Core
                 var entityFamilyBits = entity.FamilyBits;
 
                 var belongsToFamily = entityFamilyBits.Get(familyIndex);
-                var matches = family.Matches(entity) && !entity._removing;
+                var matches = family.Matches(entity) && !entity.Removing;
 
                 if (belongsToFamily != matches)
                 {

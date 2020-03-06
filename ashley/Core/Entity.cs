@@ -7,15 +7,15 @@ namespace ashley.Core
 {
     public class Entity
     {
-        private static readonly Type _componentType = typeof(IComponent);
+        private static readonly Type ComponentType = typeof(IComponent);
         
         /// <summary>
         /// A customizable bitmask. Up to the user to manage.
         /// </summary>
         public long Flags { get; set; }
         
-        public ImmutableList<IComponent> Components => _immutableComponents;
-        
+        public ImmutableList<IComponent> Components { get; }
+
         internal BitSet ComponentBits { get; }
 
         internal BitSet FamilyBits { get; }
@@ -32,19 +32,17 @@ namespace ashley.Core
         /// </summary>
         public Signal<Entity> ComponentRemoved { get; } = new Signal<Entity>();
 
-        public ComponentOperationHandler ComponentOperationHandler { get; set; }
+        internal ComponentOperationHandler ComponentOperationHandler;
+        internal bool Removing;
         
-        internal bool _removing;
-        
-        private Bag<IComponent> _components;
-        private List<IComponent> _componentsList;
-        private ImmutableList<IComponent> _immutableComponents;
+        private readonly Bag<IComponent> _components;
+        private readonly List<IComponent> _componentsList;
 
         public Entity()
         {
             _components = new Bag<IComponent>();
             _componentsList = new List<IComponent>(16);
-            _immutableComponents = new ImmutableList<IComponent>(_componentsList);
+            Components = new ImmutableList<IComponent>(_componentsList);
             ComponentBits = new BitSet();
             FamilyBits = new BitSet();
         }
@@ -74,11 +72,11 @@ namespace ashley.Core
 
         public IComponent Remove(Type type)
         {
-            if (!_componentType.IsAssignableFrom(type) || !type.IsClass)
+            if (!ComponentType.IsAssignableFrom(type) || !type.IsClass)
                 throw new ArgumentException("The type must be a class that implements IComponent",
                     nameof(type));
             
-            var componentType = ComponentType.GetFor(type);
+            var componentType = Core.ComponentType.GetFor(type);
 
             if (_components.IsIndexWithinBounds(componentType.Index))
             {
@@ -112,7 +110,7 @@ namespace ashley.Core
         }
 
         public TComponent GetComponent<TComponent>() where TComponent : class, IComponent
-            => GetComponent(ComponentType.GetFor<TComponent>()) as TComponent;
+            => GetComponent(Core.ComponentType.GetFor<TComponent>()) as TComponent;
 
         internal IComponent GetComponent(ComponentType componentType)
         {
@@ -130,7 +128,7 @@ namespace ashley.Core
         {
             if (component == null) return false;
             
-            var type = ComponentType.GetFor(component.GetType());
+            var type = Core.ComponentType.GetFor(component.GetType());
             var oldComponent = GetComponent(type);
             
             if (component == oldComponent)

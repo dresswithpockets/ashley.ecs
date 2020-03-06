@@ -3,7 +3,7 @@ using ashley.Utils;
 
 namespace ashley.Core
 {
-    public class ComponentOperationHandler
+    internal class ComponentOperationHandler
     {
         private IBooleanInformer _delayedInformer;
         private Pool<ComponentOperation> _operationPool = new Pool<ComponentOperation>(() => new ComponentOperation());
