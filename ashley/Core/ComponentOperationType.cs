@@ -1,6 +1,6 @@
 ﻿namespace ashley.Core
 {
-    public enum ComponentOperationType
+    internal enum ComponentOperationType
     {
         Add,
         Remove
