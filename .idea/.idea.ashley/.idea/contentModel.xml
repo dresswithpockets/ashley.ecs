@@ -91,18 +91,6 @@
         </e>
       </e>
       <e p="packages" t="ExcludeRecursive" />
-      <e p="utils" t="IncludeRecursive">
-        <e p="bin" t="ExcludeRecursive" />
-        <e p="obj" t="ExcludeRecursive">
-          <e p="Debug" t="Include">
-            <e p="netstandard2.1" t="Include">
-              <e p="utils.AssemblyInfo.cs" t="Include" />
-            </e>
-          </e>
-        </e>
-        <e p="OrientedPolygon.cs" t="Include" />
-        <e p="utils.csproj" t="IncludeRecursive" />
-      </e>
     </e>
   </component>
 </project>
